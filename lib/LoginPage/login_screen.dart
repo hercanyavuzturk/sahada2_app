@@ -18,19 +18,19 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> with TickerProviderStateMixin{
 
-       late Animation<double> _animation;
-       late AnimationController _animationController;
+  late Animation<double> _animation;
+  late AnimationController _animationController;
 
-       final TextEditingController _emailTextController = TextEditingController(text: "");
-       final TextEditingController _passTextController = TextEditingController(text: "");
+  final TextEditingController _emailTextController = TextEditingController(text: "");
+  final TextEditingController _passTextController = TextEditingController(text: "");
 
-       final FocusNode _passFocusNode = FocusNode();
-       bool _isLoading = false;
-       bool _obscureText = true;
-       final FirebaseAuth _auth = FirebaseAuth.instance;
-       final _loginFormKey = GlobalKey<FormState>();
+  final FocusNode _passFocusNode = FocusNode();
+  bool _isLoading = false;
+  bool _obscureText = true;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final _loginFormKey = GlobalKey<FormState>();
 
-       @override
+  @override
   void dispose() {
     _animationController.dispose();
     _emailTextController.dispose();
@@ -39,44 +39,44 @@ class _LoginState extends State<Login> with TickerProviderStateMixin{
     super.dispose();
   }
 
-       @override
+  @override
   void initState() {
     _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 20));
     _animation = CurvedAnimation(parent: _animationController, curve: Curves.linear)
-    ..addListener(() { })
-    ..addStatusListener((animationStatus) {
-      if(animationStatus == AnimationStatus.completed){
-        _animationController.reset();
-        _animationController.forward();
-      }
-    });
+      ..addListener(() { })
+      ..addStatusListener((animationStatus) {
+        if(animationStatus == AnimationStatus.completed){
+          _animationController.reset();
+          _animationController.forward();
+        }
+      });
     _animationController.forward();
     super.initState();
   }
   void _submitFormOnLogin() async
   {
-         final isValid = _loginFormKey.currentState!.validate();
-         if(isValid){
-           setState(() {
-             _isLoading = true;
-           });
-           try{
-             await _auth.signInWithEmailAndPassword(
-               email: _emailTextController.text.trim().toLowerCase(),
-               password: _passTextController.text.trim(),
-             );
-             Navigator.canPop(context) ? Navigator.pop(context) : null;
-           } catch(error){
-             setState(() {
-               _isLoading = false;
-             });
-             GlobalMethod.showErrorDialog(error: error.toString(), ctx: context);
-             print("Hata $error" );
-           }
-         }
-         setState(() {
-           _isLoading = false;
-         });
+    final isValid = _loginFormKey.currentState!.validate();
+    if(isValid){
+      setState(() {
+        _isLoading = true;
+      });
+      try{
+        await _auth.signInWithEmailAndPassword(
+          email: _emailTextController.text.trim().toLowerCase(),
+          password: _passTextController.text.trim(),
+        );
+        Navigator.canPop(context) ? Navigator.pop(context) : null;
+      } catch(error){
+        setState(() {
+          _isLoading = false;
+        });
+        GlobalMethod.showErrorDialog(error: error.toString(), ctx: context);
+        print("Hata $error" );
+      }
+    }
+    setState(() {
+      _isLoading = false;
+    });
   }
 
 
@@ -117,9 +117,9 @@ class _LoginState extends State<Login> with TickerProviderStateMixin{
                           validator: (value)
                           {
                             if(value!.isEmpty || !value.contains("@"))
-                              {
-                                return "Lütfen geçerli bir email adresi giriniz";
-                              }
+                            {
+                              return "Lütfen geçerli bir email adresi giriniz";
+                            }
                             else{
                               return null;
                             }
@@ -165,7 +165,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin{
                               },
                               child: Icon(
                                 _obscureText
-                                ? Icons.visibility
+                                    ? Icons.visibility
                                     : Icons.visibility_off,
                                 color: Colors.white,
 
@@ -225,7 +225,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin{
                                 const TextSpan(text: "      "),
                                 TextSpan(
                                   recognizer: TapGestureRecognizer()
-                                      ..onTap = () => Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUp())),
+                                    ..onTap = () => Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUp())),
                                   text: "Kaydol",
                                   style: const TextStyle(
                                     color: Colors.green,
@@ -250,3 +250,4 @@ class _LoginState extends State<Login> with TickerProviderStateMixin{
     );
   }
 }
+

@@ -1,13 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sahada2_app/user_state.dart';
 
-import 'LoginPage/login_screen.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
               home: Scaffold(
                 body: Center(
                   child: Text(
-                    "Sahada app is being initialized",
+                    "Sahada uygulaması başlatılıyor",
                     style: TextStyle(
                         color: Colors.cyan,
                         fontSize: 40,
@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
               home: Scaffold(
                 body: Center(
                   child: Text(
-                    "An error has been occcured",
+                    "Bir hata oluştu",
                     style: TextStyle(
                         color: Colors.cyan,
                         fontSize: 40,
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
               scaffoldBackgroundColor: Colors.black,
               primarySwatch: Colors.blue,
             ),
-            home: Login(),
+            home: UserState(),
           );
         });
   }
